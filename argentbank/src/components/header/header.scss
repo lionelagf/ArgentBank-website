@@ -6,8 +6,16 @@
 
     &-logo-image {
         max-width: 100%;
-        width: 200px;
-         
+        width: 200px; 
+        display: flex;
+  align-items: center;   
+    }
+
+    &-item  {
+        text-decoration: none;
+  margin-right: 0.5rem;
+   font-weight: bold;
+  color: #2c3e50;
     }
   }
 
