@@ -15,7 +15,7 @@ function Header() {
         />
       </a>
       <nav>
-        <NavLink to='/' className='main-nav-item'>
+        <NavLink to='/sign-in' className='main-nav-item'>
           <FontAwesomeIcon icon={faCircleUser} />
           Sign In
         </NavLink>
