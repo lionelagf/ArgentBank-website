@@ -29,7 +29,7 @@ export const Login = () => {
       if (result.payload) {
         setEmail('')
         setPassword('')
-        navigate('/')
+        navigate('/user')
       }
     })
   }

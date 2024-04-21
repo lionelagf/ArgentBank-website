@@ -13,13 +13,21 @@ function User() {
           </h1>
           <ButtonGreen text='Edit Name' />
         </div>
-        <section className='account'>
-          <Transaction
-            title='Argent Bank Checking (x8349)'
-            balance='$2,082.79'
-            type='Available Balance'
-          />
-        </section>
+        <Transaction
+          title='Argent Bank Checking (x8349)'
+          balance='$2,082.79'
+          type='Available Balance'
+        />
+        <Transaction
+          title='Argent Bank Savings (x6712)'
+          balance='$10,928.42'
+          type='Available Balance'
+        />
+        <Transaction
+          title='Argent Bank Credit Card (x8349)'
+          balance='$184.30'
+          type='Current Balance'
+        />
       </main>
     )
 }
