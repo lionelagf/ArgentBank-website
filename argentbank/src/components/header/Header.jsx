@@ -2,11 +2,8 @@ import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
+import { logoutReducer } from '../../redux/store/loginSlice'
 import { useDispatch } from 'react-redux'
-import { logoutUser } from '../../store/UserSlice'
-
-// import store from '../../store'
 
 import { useSelector } from 'react-redux'
 
@@ -14,24 +11,18 @@ import logo from '../../assets/img/argentBankLogo.png'
 import './header.scss'
 
 function Header() {
-  // Vérifiez si le token est présent dans le localStorage
-  const token = useSelector((state) => state.user)
-  
-const dispatch = useDispatch()
-  
+  const token = useSelector((state) => state.login.token)
+
+  const dispatch = useDispatch()
+
+  const handleLogout = (token) => {
+    window.location.href = '/'
+      dispatch(logoutReducer())
+  }
+
   const isLoggedIn = !!token
   console.log(isLoggedIn)
 
-
-
-// const [user, setUser] = useState(getUser())
-
-const handleLogout = () => {
-  // Appelez l'action pour déconnecter l'utilisateur
-  dispatch(logoutUser())
-  // Redirigez l'utilisateur vers la page d'accueil (ou ailleurs)
-  window.location.href = '/'
-}
 
   return (
     <header>
@@ -64,7 +55,6 @@ const handleLogout = () => {
             Sign In
           </NavLink>
         )}
-       
       </nav>
     </header>
   )
