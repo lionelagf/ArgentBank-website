@@ -1,12 +1,12 @@
 import './button-green.scss'
 
-function ButtonGreen( {text}) {
+function ButtonGreen( {text, btnClass}) {
 
 
 
 return (
   <div >
-    <button type='submit' className='sign-in-button'>{text}</button>
+    <button type='submit' className={btnClass}>{text}</button>
   </div>
 )
 

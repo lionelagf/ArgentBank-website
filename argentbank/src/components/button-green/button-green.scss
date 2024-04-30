@@ -1,5 +1,4 @@
 .sign-in-button {
-  width: auto;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
@@ -8,4 +7,8 @@
   background-color: #00bc77;
   color: #fff;
   white-space: nowrap;
+}
+
+.btn-full {
+  width: 100%;
 }

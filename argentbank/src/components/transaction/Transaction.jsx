@@ -11,7 +11,7 @@ function Transaction({ title, balance, type }) {
           <p className='account-amount-description'>{type}</p>
         </div>
         <div className='account-content-wrapper cta'>
-          <ButtonGreen text='View transactions' />
+          <ButtonGreen text='View transactions' btnClass='sign-in-button' />
         </div>
       </div>
     </section>
