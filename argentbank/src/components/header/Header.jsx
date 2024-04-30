@@ -3,17 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { logoutReducer } from '../../redux/store/loginSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import fetchProfile from '../../redux/action/fetchProfile'
 
 import logo from '../../assets/img/argentBankLogo.png'
 import './header.scss'
 
 function Header() {
+  const dispatch = useDispatch()
   const token = useSelector((state) => state.login.token)
 
-  const dispatch = useDispatch()
+const { userName } = useSelector((state) => state.user)
+const fetchUserProfile = () => {
+  dispatch(fetchProfile())
+}
+
+useEffect(() => {
+  fetchUserProfile()
+})
 
   const handleLogout = (token) => {
     window.location.href = '/'
@@ -41,7 +50,7 @@ function Header() {
           <div className='main-nav-container-item'>
             <NavLink className='main-nav-item'>
               <FontAwesomeIcon icon={faCircleUser} />
-              Name
+              {userName}
             </NavLink>
             <NavLink onClick={handleLogout} className='main-nav-item'>
               <FontAwesomeIcon icon={faRightFromBracket} />
