@@ -5,12 +5,22 @@ import { thunk } from 'redux-thunk'
 import { persistReducer, persistStore, PERSIST } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-const persistConfig = {
-  key: 'root',
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// }
+
+const userPersistConfig = {
+  key: 'user',
   storage,
 }
-const persistedUserSlice = persistReducer(persistConfig, userSlice)
-const persistedLoginSlice = persistReducer(persistConfig, loginSlice)
+const loginPersistConfig = {
+  key: 'login',
+  storage,
+}
+
+const persistedUserSlice = persistReducer(userPersistConfig, userSlice)
+const persistedLoginSlice = persistReducer(loginPersistConfig, loginSlice)
 
 export const store = configureStore({
   reducer: {
@@ -27,3 +37,11 @@ export const store = configureStore({
 })
 
 export const persistedStore = persistStore(store)
+
+// export const store = 
+//   configureStore({
+// 	reducer: {
+// 		login: loginSlice,
+//     user: userSlice
+// 	},
+// });

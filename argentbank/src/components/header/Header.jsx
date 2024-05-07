@@ -20,12 +20,12 @@ const navigate = useNavigate()
 const { userName } = useSelector((state) => state.user)
 
  const handleLogout = () => {
+   // Redirigez l'utilisateur vers la page d'accueil
+   navigate('/')
    // Réinitialisez l'état de connexion
    dispatch(logoutReducer())
    // Réinitialisez l'état de l'utilisateur
    dispatch(clearUser())
-   // Redirigez l'utilisateur vers la page d'accueil
-    navigate('/')
  }
 
   const isLoggedIn = !!token
