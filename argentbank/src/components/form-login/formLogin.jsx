@@ -1,7 +1,7 @@
-import './login.scss'
+import './form-login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import ButtonGreen from '../../components/button-green/ButtonGreen'
+import ButtonGreen from '../button-green/ButtonGreen'
 
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -11,34 +11,36 @@ import { useNavigate } from 'react-router-dom'
 import { loginReducer } from '../../redux/store/loginSlice'
 
 export const Login = () => {
-  // states
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [errorMessage, setErrorMessage] = useState('')
+
   const handleLoginEvent = async (e) => {
     e.preventDefault()
     let userCredentials = {
       email,
       password,
     }
+
     const response = await fetch('http://localhost:3001/api/v1/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userCredentials),
-      
     })
     if (response.ok) {
       const result = await response.json()
-      
+
       const token = result.body.token
-      dispatch(loginReducer({token:token}))
-      navigate("/user")
+      dispatch(loginReducer({ token: token }))
+      navigate('/user')
+    } else {
+      setErrorMessage('Email ou mot de passe incorrect.')
     }
-    
   }
 
   return (
@@ -50,7 +52,7 @@ export const Login = () => {
           <label>Email</label>
           <input
             type='email'
-            value={email}
+            placeholder='Email'
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -58,7 +60,7 @@ export const Login = () => {
           <label>Password</label>
           <input
             type='password'
-            value={password}
+            placeholder='Password'
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
@@ -66,7 +68,10 @@ export const Login = () => {
           <input type='checkbox' id='remember-me' />
           <label htmlFor='remember-me'>Remember me</label>
         </div>
-        <ButtonGreen text='Login' btnClass='sign-in-button btn-full' />
+        <div>
+          {errorMessage && <div className='error-message'>{errorMessage}</div>}
+        </div>
+        <ButtonGreen text='Login' btnClass='submit-btn btn-full' />
       </form>
     </section>
   )

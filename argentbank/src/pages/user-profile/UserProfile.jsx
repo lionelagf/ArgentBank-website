@@ -1,9 +1,9 @@
-import './user.scss'
+import './user-profile.scss'
+import '../../components/button-green/button-green.scss'
 import ButtonGreen from '../../components/button-green/ButtonGreen'
 import Transaction from '../../components/transaction/Transaction'
 import fetchProfile from '../../redux/action/fetchProfile'
-import { useEffect } from 'react'
-
+import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 function User() {
@@ -12,22 +12,22 @@ function User() {
   const fetchUserProfile = () => {
     dispatch(fetchProfile())
   }
-
-  useEffect(() => {
     fetchUserProfile()
-  })
 
   return (
     <main className='main bg-dark'>
       <div className='header'>
-        <h1>
+        <h1 className='header-title'>
           Welcome back
-          <br />
           <p>
             {firstName} {lastName}
           </p>
         </h1>
-        <ButtonGreen text='Edit Name' btnClass='sign-in-button' />
+        <div className='small'>
+        <NavLink to='/edit-username' >
+          <ButtonGreen text='Edit Name' btnClass='submit-btn btn-small' />
+        </NavLink>
+        </div>
       </div>
       <Transaction
         title='Argent Bank Checking (x8349)'

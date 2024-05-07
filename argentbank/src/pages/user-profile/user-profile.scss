@@ -6,7 +6,9 @@
     align-items: center;
 }
 
-
+.small {
+  width: auto;
+}
 
 .edit-button {
   border-color: #00bc77;
@@ -19,4 +21,8 @@
 .header{
     color: #fff;
     margin-bottom: 2rem;
+
+    p {
+      margin: 0;
+    }
 }

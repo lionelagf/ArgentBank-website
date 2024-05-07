@@ -5,7 +5,7 @@ function ButtonGreen( {text, btnClass}) {
 
 
 return (
-  <div >
+  <div className='submit'>
     <button type='submit' className={btnClass}>{text}</button>
   </div>
 )

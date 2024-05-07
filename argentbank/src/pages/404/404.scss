@@ -1,0 +1,30 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+ 
+  height: 100%;
+  background-color: #12002b;
+
+  .color {
+    color: white;
+  }
+
+  &__title {
+    font-size: 288px;
+    font-weight: 700;
+    margin: 100px;
+  }
+
+  &__subtitle {
+    font-size: 36px;
+  }
+
+  &__back-button {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
