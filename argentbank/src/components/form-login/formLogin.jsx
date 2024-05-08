@@ -2,13 +2,12 @@ import './form-login.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import ButtonGreen from '../button-green/ButtonGreen'
-
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
 import { useNavigate } from 'react-router-dom'
-// import { useSelector } from 'react-redux'
 import { loginReducer } from '../../redux/store/loginSlice'
+
+import { loginUser } from '../../redux/action/authenticationService'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
@@ -25,21 +24,12 @@ export const Login = () => {
       password,
     }
 
-    const response = await fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userCredentials),
-    })
-    if (response.ok) {
-      const result = await response.json()
-
-      const token = result.body.token
+    try {
+      const token = await loginUser(userCredentials)
       dispatch(loginReducer({ token: token }))
       navigate('/user')
-    } else {
-      setErrorMessage('Email ou mot de passe incorrect.')
+    } catch (error) {
+      setErrorMessage(error.message)
     }
   }
 

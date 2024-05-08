@@ -14,7 +14,7 @@ const fetchProfile = () => {
     })
 
     if (response.ok) {
-      const data = await response.json()   
+      const data = await response.json()
       dispatch(setUser(data.body)) // Dispatch the action to set user profile
     }
   }

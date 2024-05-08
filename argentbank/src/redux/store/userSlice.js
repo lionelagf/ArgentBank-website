@@ -16,10 +16,10 @@ const userSlice = createSlice({
       state.userName = action.payload.userName
     },
     clearUser: (state) => {
-       state.firstName = null
-       state.lastName = null
-       state.userName = null
-    }
+      state.firstName = null
+      state.lastName = null
+      state.userName = null
+    },
   },
 })
 

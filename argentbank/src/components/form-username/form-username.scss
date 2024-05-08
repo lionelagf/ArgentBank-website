@@ -1,5 +1,5 @@
 .username_content {
-      box-sizing: border-box;
+  box-sizing: border-box;
   background-color: white;
   width: 300px;
   margin: 0 auto;
@@ -8,9 +8,9 @@
 
   &-wrapper {
     display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin-bottom: 1rem;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
   }
 
   &-btn {
@@ -25,6 +25,6 @@
 
   &-wrapper input {
     padding: 5px;
-  font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 }

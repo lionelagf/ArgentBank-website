@@ -7,26 +7,24 @@ import { clearUser } from '../../redux/store/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-
-
 import logo from '../../assets/img/argentBankLogo.png'
 import './header.scss'
 
 function Header() {
   const dispatch = useDispatch()
   const token = useSelector((state) => state.login.token)
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
-const { userName } = useSelector((state) => state.user)
+  const { userName } = useSelector((state) => state.user)
 
- const handleLogout = () => {
-   // Redirigez l'utilisateur vers la page d'accueil
-   navigate('/')
-   // Réinitialisez l'état de connexion
-   dispatch(logoutReducer())
-   // Réinitialisez l'état de l'utilisateur
-   dispatch(clearUser())
- }
+  const handleLogout = () => {
+    // Redirigez l'utilisateur vers la page d'accueil
+    navigate('/')
+    // Réinitialisez l'état de connexion
+    dispatch(logoutReducer())
+    // Réinitialisez l'état de l'utilisateur
+    dispatch(clearUser())
+  }
 
   const isLoggedIn = !!token
 
@@ -45,7 +43,7 @@ const { userName } = useSelector((state) => state.user)
         {isLoggedIn ? (
           // Si l'utilisateur est connecté, affichez le bouton "SignOut"
           <div className='main-nav-container-item'>
-            <NavLink className='main-nav-item'>
+            <NavLink className='main-nav-item' to='/user'>
               <FontAwesomeIcon icon={faCircleUser} />
               {userName}
             </NavLink>

@@ -2,36 +2,30 @@ import './form-username.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import updateUsername from '../../redux/action/UpdateUsername'
-
-
 import ButtonGreen from '../button-green/ButtonGreen'
 import { useState, useEffect } from 'react'
-// import { useNavigate } from 'react-router-dom'
 
+function FormUsername() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-function FormUsername () {
-const dispatch = useDispatch()
-const navigate = useNavigate()
-
-const handleUserEvent = async (e) => {
-  e.preventDefault()
-  dispatch(updateUsername(userName))
-  navigate('/user')
+  const handleUserEvent = async (e) => {
+    e.preventDefault()
+    dispatch(updateUsername(userName))
+    navigate('/user')
   }
 
+  const {
+    userName: initialUserName,
+    firstName,
+    lastName,
+  } = useSelector((state) => state.user)
+  const [userName, setUserName] = useState(initialUserName) // Initialisation avec la valeur du state Redux
 
-const {
-  userName: initialUserName,
-  firstName,
-  lastName,
-} = useSelector((state) => state.user)
-const [userName, setUserName] = useState(initialUserName) // Initialisation avec la valeur du state Redux
-
-useEffect(() => {
-  // Mettre à jour l'état local si la valeur du state Redux change
-  setUserName(initialUserName)
-}, [initialUserName])
-
+  useEffect(() => {
+    // Mettre à jour l'état local si la valeur du state Redux change
+    setUserName(initialUserName)
+  }, [initialUserName])
 
   return (
     <section className='username_content'>
