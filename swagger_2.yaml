@@ -9,36 +9,17 @@ basePath: /api/v2
 schemes:
   - http
 paths:
-  /user/account:
-    post: 
+  /user/transactions:
+    get:
       tags:
-        - Accounts
-      summary: All accounts
-      description: API for fetching all user account
-      security:
-        - Bearer: []
-      responses: 
-        '200':
-          description: All accounts fetch successfully
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/AccountResponse'
-        '401':
-          description: Unauthorized user
-        '500':
-          description: Internal Server Error
-  /account/{accountId}/transactions:
-    post:
-      tags:
-        - Accounts and Transactions
-      summary: Account transactions
+        - Transactions Module
+      summary: Get all user transactions
       description: API for retrieving list of transactions assiocated with an account
       security: 
         - Bearer: []
       parameters:
-        - in: path
-          name: accountId
+        - in: header
+          name: Authorization
           description: Id of an account
           required: true
           type: string
@@ -55,10 +36,36 @@ paths:
           description: Account not found
         '500':
           description: Internal Server Error
-  /transactions/{transactionId}/category:
+  /user/transactions/{Id}:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get transactions details depending on id
+      description: API for retrieving all details of a transaction
+      security: 
+        - Bearer: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Id of an account
+          required: true
+          type: string
+      responses:
+        '200':
+          description: All transactions retrieved successfully
+          schema: 
+            type: array
+            items:
+              $ref: '#/definitions/DetailsResponse'
+        '401':
+          description: Unauthorized user
+        '404': 
+          description: Account not found
+        '500':
+          description: Internal Server Error
     put:
       tags:
-        - Accounts and Transactions
+        - Transactions Module
       summary: Update transaction's category
       description: API for updating category of transaction
       security: 
@@ -74,103 +81,39 @@ paths:
           description: Modified transaction's category
           required: true
           schema:
-            $ref: '#/definitions/TransactionCategory'
+            $ref: '#/definitions/EditTransactionDetails'
       responses:
         '200':
           description: Transaction's category modified successfully
           schema: 
-            $ref: '#/definitions/TransactionCategory'
+            $ref: '#/definitions/DetailsResponse'
         '401': 
           description: Unauthorized user
         '404': 
           description: Transaction not found
         '500': 
           description: Internal Servor Error
-  /transactions/{transactionId}/note:
-    post:
-      tags:
-        - Accounts and Transactions
-      summary: Add transaction's note
-      description: API for adding a note to a transaction
-      security: 
-        - Bearer: []
-      parameters:
-        - in: path
-          name: transactionId
-          description: Id of a transaction
-          required: true
-          type: string
-        - in: body
-          name: note
-          description: New transaction's note
-          required: true
-          schema: 
-            $ref: '#/definitions/TransactionNote'
-      responses:
-        '200':
-          description: Note added to the transaction successfully
-          schema: 
-            $ref: '#/definitions/TransactionResponseNote'
-        '401':
-          description: Unauthorized user
-        '404':
-          description: Note not created
-        '500':
-          description: Internal Server Error
-  /transactions/{transactionId}/note/{noteId}:
-    put:
-      tags:
-        - Accounts and Transactions
-      summary: Modify transaction's note
-      description: API for modifying a note of a transaction
-      security: 
-        - Bearer: []
-      parameters:
-        - in: path
-          name: transactionId
-          description: Id of a transaction
-          required: true
-          type: string
-        - in: path
-          name: noteId
-          description: Id of a note
-          required: true
-          type: string
-        - in: body
-          name: note
-          description: Modify transaction's note
-          required: true
-          schema: 
-            $ref: '#/definitions/TransactionNote'
-      responses:
-        '200':
-          description: Note modified successfully
-          schema:
-            $ref: '#/definitions/TransactionResponseNote'
-        '401':
-          description: Unauthorized user
-        '404':
-          description: Note not modified
-        '500':
-          description: Internal Server Error
     delete:
       tags:
-        - Accounts and Transactions Module
+        - Transactions Module
       summary: Delete transaction's note
       description: API for deleting a note of a transaction
       security:
         - Bearer: []
       parameters:
-        - in: path
-          name: transactionId
-          description: Id of a transaction
+        - in: body
+          name: deleteOptions
+          description: Options for deletion
           required: true
-          type: string
-        - in: path
-          name: noteId
-          description: Id of a note
-          required: true
-          type: string
+          schema:
+            type: object
+            properties:
+              deleteCategory:
+                type: boolean
+                description: Set to true if you want to delete the category
+              deleteNote:
+                type: boolean
+                description: Set to true if you want to delete the note
       responses:
         '200':
           description: Note deleted successfully
@@ -186,50 +129,48 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
-  AccountResponse:
+  TransactionsResponse:
+     properties: 
+        id:
+          type: integer
+          example: 2244
+        date:
+          type: string
+          example: May 10th, 2024
+        description:
+            type: string
+            example: Golden Sun Bakery
+        amount:
+            type: integer
+            example: 8
+        balance:
+            type: integer
+            example: 298.10
+        type:
+            type: string
+            example: Electronic
+  DetailsResponse:
+     properties:
+        Category:
+          type: array
+          example: 
+            - Food 
+            - Housing 
+            - Deposit
+            - Hobbies
+            - Other
+        selectedCategory: 
+            type: string
+            example: Food
+        note:
+            type: string
+            example: Léa's birthday
+  EditTransactionDetails:
     type: object
     properties:
-      accountName:
+      notes:
         type: string
-        description: account name
-      accountCurrency:
-        type: string
-        description: account currency
-      currentBalance:
-        type: number
-        description: current account balance
-        format: double
-  TransactionResponse:
-    type: object
-    properties:
-      date:
-        type: string
-        description: Date of the transaction
-      description:
-        type: string
-        description: Description of the transaction
-      amount:
-        type: string
-        description: Amount of the transaction
-      balance:
-        type: string
-        description: Balance after the transaction
-  TransactionCategory:
-    type: object
-    properties:
+        description: transaction additional notes
       category:
         type: string
-  TransactionNote:
-    type: object
-    properties:
-      note:
-        type: string
-  Detail:
-    type: object
-    properties:
-      transactionType:
-        type: string
-      category:
-        type: string
-      note:
-        type: string
+        description: transaction category
